@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
 :root {
   --bg-body: #fff0f5;
   --bg-container: #ffedf6;
@@ -44,7 +46,7 @@
   --shadow-play-again-btn: #4db6ac;
   
   /* Non-color variables (optional but good practice) */
-  --font-family-default: 'Comic Sans MS', cursive, sans-serif;
+  --font-family-default: 'Comic Neue', cursive, sans-serif;
   --progress-icon-size: 50px;
   --problem-box-height: 120px;
 
@@ -71,22 +73,30 @@ body {
     
     display: flex;
     justify-content: center;
-    align-items: center;
     min-height: 100vh;
 }
 
-.container {
+/* == Shared Box Styles == */
+.shared-box-styles {
     width: 90%;
     max-width: 600px;
-    background-color: var(--bg-container); /* New solid color */
+    background-color: var(--bg-container); 
     border-radius: 20px;
-    padding: 20px;
+    padding: 20px; /* Default padding */
     box-shadow: 0 10px 30px rgba(136, 78, 157, 0.2);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 850px;
+    min-height: 830px; /* Adjust as needed for desktop */
+    max-height: 830px; /* Adjust as needed for desktop */
+    /* Default min-height removed for now based on previous steps */
+}
+
+.container {
+    margin-top: 30px; /* Added default top margin */
+    /* Specific container styles if any */
+    /* min-height: 850px;  Original default, decide if needed */
 }
 
 h1 {
@@ -110,7 +120,7 @@ h1 {
 }
 
 .game-area {
-    margin: 20px 0;
+    margin: 10px 0 20px 0; /* Reduced top margin */
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -408,13 +418,10 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: transparent; 
+    background-color: transparent; /* Reverted */
     z-index: 10;
-    /* Revert to default visible state */
     opacity: 1; 
     visibility: visible; 
-    /* Remove transition */
-    /* transition: opacity 0.5s ease-in-out; */
 }
 
 /* Restore original hidden class */
@@ -423,23 +430,14 @@ h1 {
     visibility: hidden !important;
 }
 
-/* Styles for the inner content box - EXACT match to .container + Absolute Centering */
+/* Styles for the inner content box - Top Aligned */
 .celebration-content-box {
-    width: 90%;
-    max-width: 600px;
-    background-color: var(--bg-container); /* New solid color */
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(136, 78, 157, 0.2);
-    text-align: center;
-    min-height: 850px;
+    /* Shared styles moved to .shared-box-styles */
     position: absolute;
-    top: 50%;
+    top: 30px; /* Match container default top margin */
     left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    transform: translateX(-50%); 
+    /* Other unique styles if needed */
 }
 
 #celebration h2 {
@@ -457,7 +455,7 @@ h1 {
 /* Styles for elements within Celebration overlay */
 .final-score-box {
     background: var(--gradient-final-score);
-    padding: 20px 35px;
+    padding: 15px 35px;
     border-radius: 15px;
     margin-bottom: 20px;
     width: 80%;
@@ -643,25 +641,93 @@ h1 {
 }
 
 @media (max-width: 500px) {
+    /* Add vertical padding to body */
+    body {
+        padding: 0; /* Reset padding */
+    }
+
+    /* Mobile styles for SHARED box */
+    .shared-box-styles {
+        padding: 15px; 
+        width: 95%;
+        max-width: 95%;
+        min-height: 750px; /* Mobile height constraint - Uncommented */
+        max-height: 750px; /* Mobile height constraint - Uncommented */
+    }
+
+    /* Mobile styles for main container (Margins) */
+    .container {
+        align-items: center; 
+        margin-top: 20px; 
+        margin-bottom: 20px;
+        /* min-height: 750px; Removed */
+        /* max-height: 750px; Removed */
+    }
+
+    /* Mobile styles for celebration box (remove overrides) */
+    .celebration-content-box {
+        /* Shared styles handled by .shared-box-styles */
+        /* Padding, width, height rules removed */
+    }
+
+    /* Widen main containers rule removed (now in shared) */
+    /* #problem-box, ... rule removed or simplified if only margins needed */
     #problem-box,
     .progress-container,
+    .timer-container, 
+    .numpad,
+    #start-game-button {
+        /* width/max-width handled by parent */
+        margin-left: auto; 
+        margin-right: auto; 
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    #leaderboard {
+         /* width/max-width handled by parent - Overriding below */
+        margin-left: auto; 
+        margin-right: auto; 
+        width: 330px; /* Specific mobile width */
+        max-width: 330px; /* Match specific width */
+    }
+
+
+    /* Reset problem-container margins */
+    .problem-container {
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 0; 
+        width: 100%; 
+    }
+
+    /* Adjust specific top margins and heights */
+    #start-game-button {
+        margin-top: 15px; 
+        height: 100px !important; /* Override default var height */
+    }
     .numpad {
-        width: 90%;
-        max-width: 90%;
+         margin-top: 15px; 
+    }
+
+    /* Numpad Row/Button Adjustments for Width */
+    .numpad-row {
+        width: 100%; 
+    }
+    .numpad-row .numpad-btn,
+    .numpad-row .action-btn {
+        flex: 1; 
+        width: auto; 
+        height: 60px; 
+        font-size: 1.5rem; 
     }
     
-    .numpad-btn, .action-btn {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
-    
+    /* Keep problem box specific styles */
     #problem-box {
         font-size: 2rem;
-        height: 100px;
-        max-width: 90%;
+        height: 100px !important; /* Match start button override */
     }
     
+    /* Keep number box styles */
     .number-box {
         width: 65px;
         height: 50px;
@@ -670,6 +736,40 @@ h1 {
     #operator, #equals {
         margin: 0 5px;
     }
+
+    /* Hide instructions text */
+    .instructions {
+        display: none;
+    }
+
+    /* Reduce title size */
+    h1 {
+        font-size: 2.0rem; 
+        margin-bottom: 10px; 
+    }
+
+    /* Reposition and center theme selector */
+    .theme-selector {
+        position: relative !important; 
+        display: flex; 
+        justify-content: center; 
+        top: auto !important; 
+        right: auto !important; 
+        left: auto; 
+        margin: 0 0 15px 0; 
+        width: auto; 
+        z-index: auto !important; 
+    }
+
+    /* Widen leaderboard rule removed (now in shared) */
+
+    /* Reduce high score list font size on mobile */
+    #high-scores-list li,
+    #high-scores-list li .score,
+    #high-scores-list li input[type="text"].inline-name-input {
+        font-size: 1.0rem; /* Smaller font */
+    }
+
 }
 
 /* Styles for the initial Start Game button - Mimic #problem-box */

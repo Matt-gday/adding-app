@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Loaded, starting script setup...'); // Log 1
     // Target Score for winning the game
-    const TARGET_SCORE = 100;
+    const TARGET_SCORE = 10;
     const TIMER_DURATION = 30000; // 30 seconds in milliseconds
     const TIMER_UPDATE_INTERVAL = 100; // How often to update timer visually (ms)
     const MAX_HIGH_SCORES = 6; // Changed to 6
