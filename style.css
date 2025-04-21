@@ -1,0 +1,953 @@
+:root {
+  --bg-body: #fff0f5;
+  --bg-container: #ffedf6;
+  --text-heading: #d16ba5;
+  --text-secondary: #884e9d;
+  --text-primary: #5e3370;
+  --text-input: #333;
+  --text-light: #ffffff;
+  --text-timer-value: #424242;
+  --text-score-highlight: #4bacb8;
+
+  --gradient-problem: linear-gradient(145deg, #f7a7d9, #e881c5);
+  --shadow-problem: rgba(216, 107, 165, 0.3);
+  --bg-number-box: #ffffff;
+  
+  --bg-timer-container: #e1bee7;
+  --gradient-timer-bar: linear-gradient(90deg, #f48fb1, #ce93d8);
+  --bg-timer-value: #80deea;
+  
+  --bg-progress-bar: #e1bee7;
+  --gradient-progress-fill: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+  
+  --bg-numpad-btn: #80deea;
+  --shadow-numpad-btn: #4bacb8;
+  --text-numpad-btn: #424242;
+  
+  --bg-action-btn: #ce93d8;
+  --shadow-action-btn: #ab47bc;
+  
+  --bg-small-action-btn: #ef9a9a;
+  --shadow-small-action-btn: #e57373;
+  
+  --bg-backspace-btn: #f48fb1;
+  --shadow-backspace-btn: #f06292;
+  
+  --bg-go-btn: #a5d6a7;
+  --shadow-go-btn: #81c784;
+  
+  --gradient-final-score: linear-gradient(145deg, #8739a3, #884e9d);
+  --bg-leaderboard: #80deea;
+  --bg-leaderboard-li: #ffffff;
+  
+  --bg-play-again-btn: #80cbc4;
+  --shadow-play-again-btn: #4db6ac;
+  
+  /* Non-color variables (optional but good practice) */
+  --font-family-default: 'Comic Sans MS', cursive, sans-serif;
+  --progress-icon-size: 50px;
+  --problem-box-height: 120px;
+
+  /* Variables for theme-switchable assets */
+  --body-bg-image: url('background.png');
+  --progress-icon-src: url('cat.png'); 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family-default);
+}
+
+body {
+    background-color: var(--bg-body); /* Fallback color */
+    /* Add background image */
+    background-image: var(--body-bg-image); /* Use variable */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed; /* Keep background fixed during scroll */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    background-color: var(--bg-container); /* New solid color */
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(136, 78, 157, 0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 850px;
+}
+
+h1 {
+    color: var(--text-heading);
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+}
+
+.instructions {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+/* Score Display Styles */
+.score-display {
+    font-size: 1.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.game-area {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.problem-container {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    width: 80%;
+    max-width: 480px;
+}
+
+#problem-box {
+    background: var(--gradient-problem);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 15px var(--shadow-problem);
+    width: 100%;
+    max-width: 100%;
+    height: var(--problem-box-height);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    position: relative;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+#equation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.number-box {
+    background-color: var(--bg-number-box);
+    border-radius: 10px;
+    width: 80px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.4s ease;
+}
+
+#num1-box, #num2-box, #answer-box {
+    position: relative;
+    z-index: 2;
+}
+
+#answer-box {
+    will-change: transform;
+}
+
+#operator, #equals {
+    margin: 0 8px;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+#num1, #num2 {
+    font-size: 2rem;
+}
+
+#answer-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-input);
+    outline: none;
+}
+
+/* Timer Styles */
+.timer-container {
+    width: 80%;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    background-color: var(--bg-timer-container);
+    border-radius: 10px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    height: 15px;
+}
+
+.timer-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--gradient-timer-bar);
+    border-radius: 10px;
+    transform-origin: left;
+    transform: scaleX(1);
+    transition: transform 0.1s linear;
+    z-index: 1;
+}
+
+.timer-value {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: 35px;
+    height: 35px;
+    background-color: var(--bg-timer-value);
+    color: var(--text-timer-value);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: right 0.1s linear;
+}
+
+/* Progress Bar Styles */
+.progress-container {
+    width: 80%;
+    max-width: 480px;
+    margin: 15px auto;
+    position: relative;
+    height: 30px;
+    box-sizing: border-box;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-progress-bar);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 15px;
+    /* background-color: #ff80ab; Removed */
+    /* Define the repeating rainbow gradient */
+    background: var(--gradient-progress-fill);
+    background-size: 300% 100%; /* Make gradient wider for movement */
+    /* Apply animation - Added alternate direction */
+    animation: smooth-rainbow 6s linear infinite alternate; 
+    transition: width 0.5s ease-out;
+    /* filter: hue-rotate(0deg); Removed */
+}
+
+/* Styling for the progress icon (emoji) */
+.progress-icon {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--progress-icon-size);
+    height: var(--progress-icon-size);
+    /* Set image source via variable */
+    content: var(--progress-icon-src); /* Use content for img src */
+    transition: left 0.5s ease-out;
+    animation: bounce 0.8s ease-in-out infinite;
+    z-index: 3;
+    pointer-events: none;
+    display: inline-block;
+}
+
+/* New keyframes using background-position */
+@keyframes smooth-rainbow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; } 
+}
+
+/* Keyframes for bounce animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateY(-5px); /* Adjust bounce height */
+    }
+}
+
+.numpad {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 80%;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    box-sizing: border-box;
+}
+
+.numpad-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.numpad-btn, .action-btn {
+    width: 144px;
+    height: 70px;
+    border-radius: 15px;
+    border: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    flex-shrink: 0;
+}
+
+.numpad-btn {
+    background-color: var(--bg-numpad-btn);
+    color: var(--text-numpad-btn);
+    box-shadow: 0 4px 0 var(--shadow-numpad-btn);
+}
+
+.numpad-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--shadow-numpad-btn);
+}
+
+.action-btn {
+    background-color: var(--bg-action-btn);
+    color: var(--text-light);
+    box-shadow: 0 4px 0 var(--shadow-action-btn);
+}
+
+.action-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--shadow-action-btn);
+}
+
+/* Style for the smaller reset button */
+.small-action-btn {
+    padding: 8px 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--bg-small-action-btn);
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: 0 3px 0 var(--shadow-small-action-btn);
+    margin-top: 15px; /* Add space above */
+}
+
+.small-action-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 var(--shadow-small-action-btn);
+}
+
+#backspace {
+    background-color: var(--bg-backspace-btn);
+    box-shadow: 0 4px 0 var(--shadow-backspace-btn);
+}
+
+#go {
+    /* Use fixed default green colors */
+    background-color: #56c75a; /* Default Go Green */
+    box-shadow: 0 4px 0 #81c784; /* Default Go Shadow */
+    /* background-color: var(--bg-go-btn); */
+    /* box-shadow: 0 4px 0 var(--shadow-go-btn); */
+}
+
+/* Overlay background */
+#celebration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; 
+    z-index: 10;
+    /* Revert to default visible state */
+    opacity: 1; 
+    visibility: visible; 
+    /* Remove transition */
+    /* transition: opacity 0.5s ease-in-out; */
+}
+
+/* Restore original hidden class */
+.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Styles for the inner content box - EXACT match to .container + Absolute Centering */
+.celebration-content-box {
+    width: 90%;
+    max-width: 600px;
+    background-color: var(--bg-container); /* New solid color */
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(136, 78, 157, 0.2);
+    text-align: center;
+    min-height: 850px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#celebration h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--text-heading);
+}
+
+#celebration p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+
+/* Styles for elements within Celebration overlay */
+.final-score-box {
+    background: var(--gradient-final-score);
+    padding: 20px 35px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 480px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 15px var(--shadow-problem);
+}
+
+.final-score {
+    font-size: 26px !important;
+    font-weight: bold;
+    color: var(--text-light) !important;
+    margin-bottom: 0;
+    display: inline;
+}
+
+/* Popup CSS Removed */
+/*
+#high-score-popup { ... }
+#high-score-popup.show { ... }
+*/
+
+#rank-message {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    font-weight: normal;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+#name-form {
+    margin-bottom: 20px;
+}
+
+#name-form input[type="text"] {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 2px solid #f8bbd0;
+    font-size: 1rem;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--text-input);
+}
+
+#name-form button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--bg-numpad-btn);
+    color: var(--text-numpad-btn); 
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 3px 0 var(--shadow-numpad-btn);
+}
+
+#name-form button:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 var(--shadow-numpad-btn);
+}
+
+#leaderboard {
+    margin-top: 15px;
+    background-color: var(--bg-leaderboard);
+    padding: 20px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 480px;
+    box-shadow: 0 6px 12px rgba(77, 208, 225, 0.4);
+    box-sizing: border-box;
+}
+
+#leaderboard h3 {
+    color: var(--text-light);
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: none;
+    padding-bottom: 0px;
+}
+
+#high-scores-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#high-scores-list li {
+    background-color: var(--bg-leaderboard-li);
+    color: var(--text-primary);
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    font-size: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#high-scores-list li:last-child {
+    margin-bottom: 0;
+}
+
+#high-scores-list li .score {
+    font-weight: bold;
+    color: var(--text-score-highlight);
+}
+
+#high-scores-list li input[type="text"].inline-name-input {
+    /* Ensure no visual box */
+    border: none;
+    background-color: transparent;
+    /* Adjustments */
+    padding: 0px; 
+    margin: 0 5px; 
+    font-size: 1.2rem; /* Match li font size */
+    font-family: var(--font-family-default);
+    color: var(--text-primary); 
+    outline: none; 
+    vertical-align: baseline; 
+    text-align: left; /* Explicitly align left */
+}
+
+.correct-animation {
+    animation: correct 0.6s ease-in-out;
+}
+
+.fade-out {
+    opacity: 0 !important;
+}
+
+.fade-in {
+    animation: fade-in 0.5s ease-in-out forwards;
+}
+
+@keyframes correct {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); background-color: #4caf50; color: var(--text-light); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+    background-color: rgba(255, 0, 0, 0.2) !important; /* Red flash */
+}
+
+#play-again {
+    background-color: var(--bg-play-again-btn);
+    border: none;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: 0 4px 0 var(--shadow-play-again-btn);
+    margin-top: 30px;
+    min-width: 150px;
+    text-align: center;
+}
+
+#play-again:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--shadow-play-again-btn);
+}
+
+#play-again:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 500px) {
+    #problem-box,
+    .progress-container,
+    .numpad {
+        width: 90%;
+        max-width: 90%;
+    }
+    
+    .numpad-btn, .action-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    #problem-box {
+        font-size: 2rem;
+        height: 100px;
+        max-width: 90%;
+    }
+    
+    .number-box {
+        width: 65px;
+        height: 50px;
+        margin: 0 5px;
+    }
+    #operator, #equals {
+        margin: 0 5px;
+    }
+}
+
+/* Styles for the initial Start Game button - Mimic #problem-box */
+#start-game-button {
+    display: block; /* Start visible */
+    /* Copied from #problem-box */
+    background: var(--gradient-problem);
+    border-radius: 15px;
+    padding: 20px; 
+    box-shadow: 0 8px 15px var(--shadow-problem);
+    width: 100%; 
+    max-width: 100%;
+    height: var(--problem-box-height);
+    box-sizing: border-box;
+    position: relative; /* Ensure it behaves like problem-box */
+    margin-top: 10px; /* Match problem-box */
+    /* Button specific styles */
+    border: none; 
+    font-size: 2.5rem; 
+    font-weight: bold;
+    color: var(--text-light); /* White text for contrast */
+    cursor: pointer;
+    text-align: center;
+    /* Add transition for click effect if desired */
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+#start-game-button:active { 
+    transform: scale(0.98); /* Slight shrink effect */
+    box-shadow: 0 4px 10px var(--shadow-problem); /* Adjusted shadow */
+}
+
+/* Class to hide elements initially */
+.initially-hidden {
+    display: none; 
+}
+
+/* Theme Selector Styles */
+.theme-selector {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 50; 
+    display: flex; /* Arrange icons horizontally */
+    gap: 10px; /* Space between icons */
+}
+
+.theme-icon-button {
+    width: 40px; 
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%; 
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.5); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+    /* margin-left: 10px; Add space if needed, gap does it */
+}
+
+.theme-icon-button:hover {
+    transform: scale(1.1);
+}
+
+/* Remove Theme Choices Panel styles */
+/*
+#theme-choices { ... }
+#theme-choices.hidden { ... }
+.theme-choice-button { ... }
+.theme-choice-button:hover { ... }
+*/
+
+/* --- THEME DEFINITIONS --- */
+
+/* Forest Theme */
+.theme-forest {
+    --bg-body: #e8f5e9; /* Light green */
+    --bg-container: #a5d6a7; /* Solid green */
+    --text-heading: #1b5e20; /* Dark green */
+    --text-secondary: #388e3c; /* Medium green */
+    --text-primary: #1b5e20; /* Dark green */
+    --gradient-problem: linear-gradient(145deg, #a5d6a7, #81c784); /* Greens */
+    --shadow-problem: rgba(76, 175, 80, 0.3);
+    --bg-timer-container: #c8e6c9; /* Pale green */
+    --gradient-timer-bar: linear-gradient(90deg, #81c784, #4caf50); /* Greens */
+    --bg-timer-value: #a5d6a7; /* Light green */
+    --bg-progress-bar: #c8e6c9;
+    --bg-numpad-btn: #a5d6a7;
+    --shadow-numpad-btn: #66bb6a;
+    --text-numpad-btn: #1b5e20;
+    --bg-action-btn: #66bb6a;
+    --shadow-action-btn: #388e3c;
+    --bg-small-action-btn: #ef9a9a; /* Keep reset reddish? */
+    --shadow-small-action-btn: #e57373;
+    --bg-backspace-btn: #f48fb1; /* Keep pinkish? */
+    --shadow-backspace-btn: #f06292;
+    --gradient-final-score: linear-gradient(145deg, #388e3c, #1b5e20);
+    --bg-leaderboard: #a5d6a7;
+    --bg-leaderboard-li: #ffffff;
+    --bg-play-again-btn: #388e3c;
+    --shadow-play-again-btn: #1b5e20;
+
+    --body-bg-image: url('forest-bg.png'); /* Example */
+    --progress-icon-src: url('fox.png'); /* Example */
+}
+
+/* Space Theme */
+.theme-space {
+    --bg-body: #0c0d2b; /* Very dark space blue */
+    --bg-container: #1a1f4b; /* Dark blue/purple */
+    --text-heading: #87cefa; /* Light Sky Blue */
+    --text-secondary: #c6a3ff; /* Lavender/Nebula Purple */
+    --text-primary: #ffffff; /* White */
+    --text-light: #ffffff; /* White */
+    --text-input: #e0e0e0; /* Light grey for input */
+    
+    --gradient-problem: linear-gradient(145deg, #2a3064, #1a1f4b); /* Dark blue gradient */
+    --shadow-problem: rgba(0, 0, 0, 0.5);
+    --bg-number-box: #4a5188; /* Muted blue-grey */
+    
+    --bg-timer-container: #4a5188; 
+    --gradient-timer-bar: linear-gradient(90deg, #00ffff, #3c8ce7); /* Cyan to Blue */
+    --bg-timer-value: #00ffff; /* Cyan */
+    --text-timer-value: #0c0d2b; /* Dark text on cyan */
+    
+    --bg-progress-bar: #4a5188;
+    --bg-numpad-btn: #00ffff; /* Cyan */
+    --shadow-numpad-btn: #00c0c0;
+    --text-numpad-btn: #0c0d2b; /* Dark text */
+    
+    --bg-action-btn: #a3acff; /* Lavender Blue */
+    --shadow-action-btn: #7b8aff;
+    --text-action-btn: #0c0d2b; /* Dark text */
+    
+    --bg-small-action-btn: #ff6ac1; /* Nebula Pink */
+    --shadow-small-action-btn: #ff3f9f;
+    
+    --bg-backspace-btn: #ff6ac1; /* Nebula Pink */
+    --shadow-backspace-btn: #ff3f9f;
+    
+    --bg-go-btn: #87cefa; /* Light Sky Blue */
+    --shadow-go-btn: #5aaae0;
+    
+    --gradient-final-score: linear-gradient(145deg, #3c8ce7, #00ffff); /* Blue to Cyan */
+    --bg-leaderboard: #2a3064; /* Dark Blue */
+    --bg-leaderboard-li: #4a5188; /* Muted blue-grey */
+    --text-primary: #ffffff; /* White text for leaderboard */
+    --text-score-highlight: #00ffff; /* Cyan */
+    
+    --bg-play-again-btn: #3c8ce7; /* Blue */
+    --shadow-play-again-btn: #005ab3;
+
+    --body-bg-image: url('space-bg.png'); 
+    --progress-icon-src: url('moon.png'); 
+}
+
+/* Night Theme */
+.theme-night {
+    --bg-body: #263238; /* Dark grey-blue */
+    --bg-container: #37474f; /* Solid dark grey */
+    --text-heading: #eceff1; /* Light grey */
+    --text-secondary: #b0bec5; /* Medium grey */
+    --text-primary: #eceff1; /* Light grey */
+    --gradient-problem: linear-gradient(145deg, #546e7a, #455a64); /* Greys */
+    --shadow-problem: rgba(38, 50, 56, 0.4);
+    --bg-timer-container: #78909c; /* Grey */
+    --gradient-timer-bar: linear-gradient(90deg, #607d8b, #546e7a); /* Greys */
+    --bg-timer-value: #eceff1; /* Light grey */
+    --text-timer-value: #263238; /* Dark text */
+    --bg-progress-bar: #78909c;
+    --bg-numpad-btn: #90a4ae;
+    --shadow-numpad-btn: #607d8b;
+    --text-numpad-btn: #eceff1;
+    --bg-action-btn: #607d8b;
+    --shadow-action-btn: #455a64;
+    --bg-backspace-btn: #ef5350; /* Muted red */
+    --shadow-backspace-btn: #e53935;
+    --gradient-final-score: linear-gradient(145deg, #455a64, #263238);
+    --bg-leaderboard: #90a4ae;
+    --bg-leaderboard-li: #eceff1;
+    --text-primary: #263238;
+    --text-score-highlight: #455a64;
+    --bg-play-again-btn: #546e7a;
+    --shadow-play-again-btn: #37474f;
+
+    --body-bg-image: url('night-bg.png'); /* Example */
+    --progress-icon-src: url('owl.png'); /* Example */
+}
+
+/* Batman '66 Theme */
+.theme-batman {
+    --bg-body: #11182d; /* Dark blue/black fallback */
+    --bg-container: #283046; /* Solid approx dark grey-blue */
+    --text-heading: #fdd835; /* Yellow */
+    --text-secondary: #90a4ae; /* Grey */
+    --text-primary: #eceff1; /* Light grey */
+    --text-light: #000000; /* Black for contrast on light buttons */
+    
+    --gradient-problem: linear-gradient(145deg, #78909c, #546e7a); /* Grey gradient */
+    --shadow-problem: rgba(0, 0, 0, 0.4);
+    --bg-number-box: #eceff1; /* Light grey */
+    
+    --bg-timer-container: #546e7a; /* Grey */
+    --gradient-timer-bar: linear-gradient(90deg, #fdd835, #ffb300); /* Yellow/Orange */
+    --bg-timer-value: #fdd835; /* Yellow */
+    --text-timer-value: #000000; /* Black */
+    
+    --bg-progress-bar: #546e7a;
+    --bg-numpad-btn: #fdd835; /* Yellow */
+    --shadow-numpad-btn: #fbc02d;
+    --text-numpad-btn: #000000; /* Black */
+    
+    --bg-action-btn: #1e88e5; /* Blue */
+    --shadow-action-btn: #1565c0;
+    --text-action-btn: #ffffff; /* White text on blue */
+    
+    --bg-small-action-btn: #455a64; /* Darker Grey */
+    --shadow-small-action-btn: #263238;
+    
+    --bg-backspace-btn: #d32f2f; /* Red */
+    --shadow-backspace-btn: #c62828;
+    
+    --gradient-final-score: linear-gradient(145deg, #1e88e5, #1565c0); /* Blue */
+    --bg-leaderboard: #fdd835; /* Yellow */
+    --bg-leaderboard-li: #ffffff;
+    --text-primary: #000000; /* Black text for leaderboard */
+    --text-score-highlight: #1565c0; /* Dark blue */
+    
+    --bg-play-again-btn: #7cb342; /* Green */
+    --shadow-play-again-btn: #558b2f;
+    --text-light: #ffffff; /* Reset text-light */
+
+    --body-bg-image: url('batman-bg.png');
+    --progress-icon-src: url('batman.png');
+}
+
+/* Minecraft Theme */
+.theme-minecraft {
+    --bg-body: #7bb5fe; 
+    --bg-container: #382613; 
+    --text-heading: #6aaa4a; 
+    --text-secondary: #b0b0b0; 
+    --text-primary: #ffffff; 
+    --text-light: #ffffff;
+    --text-input: #333333;
+
+    --gradient-problem: linear-gradient(145deg, #a0a0a0, #8c8c8c); 
+    --shadow-problem: rgba(0, 0, 0, 0.3);
+    --bg-number-box: #dcdcdc; 
+    
+    --bg-timer-container: #a0a0a0; 
+    --gradient-timer-bar: linear-gradient(90deg, #6aaa4a, #8dd06a); 
+    --bg-timer-value: #6aaa4a; 
+    --text-timer-value: #ffffff;
+    
+    --bg-progress-bar: #a0a0a0; 
+    --bg-numpad-btn: #6aaa4a; 
+    --shadow-numpad-btn: #4e8a3a;
+    --text-numpad-btn: #ffffff; /* Corrected syntax and value */
+    
+    --bg-action-btn: #8c8c8c; 
+    --shadow-action-btn: #6b6b6b;
+    --text-action-btn: #ffffff;
+    
+    --bg-small-action-btn: #d32f2f; 
+    --shadow-small-action-btn: #c62828;
+    
+    --bg-backspace-btn: #447ec2; 
+    --shadow-backspace-btn: #3366a1;
+    
+    --gradient-final-score: linear-gradient(145deg, #6aaa4a, #4e8a3a); 
+    --bg-leaderboard: #a0a0a0; 
+    --bg-leaderboard-li: #ffffff;
+    --text-primary: #333333; /* Dark text for leaderboard */
+    --text-score-highlight: #6aaa4a; 
+    
+    --bg-play-again-btn: #8dd06a; 
+    --shadow-play-again-btn: #6aaa4a;
+
+    --body-bg-image: url('minecraft-bg.jpg');
+    --progress-icon-src: url('minecraft-icon.png');
+} 

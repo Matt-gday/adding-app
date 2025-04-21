@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Addition Game for Kids</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Theme Selector Icons -->
+        <div class="theme-selector">
+            <img src="cat.png" alt="Default Theme" id="theme-default-button" class="theme-icon-button" data-theme="">
+            <img src="batman.png" alt="Batman Theme" id="theme-batman-button" class="theme-icon-button" data-theme="theme-batman">
+            <img src="minecraft-icon.png" alt="Minecraft Theme" id="theme-minecraft-button" class="theme-icon-button" data-theme="theme-minecraft">
+            <img src="moon.png" alt="Space Theme" id="theme-space-button" class="theme-icon-button" data-theme="theme-space">
+            <!-- Add more theme icons here as needed -->
+        </div>
+
+        <h1>Math Addition Game</h1>
+        <p class="instructions">Keep adding numbers until you reach 100!</p>
+        
+        <div class="game-area">
+
+            <!-- Score Display -->
+            <div class="score-display">
+                <span>Score: </span>
+                <span id="game-score">0</span>
+            </div>
+
+            <!-- Problem container -->
+            <div class="problem-container">
+                <!-- Start Button - Styled like problem-box -->
+                <button id="start-game-button">Start Game!</button> 
+                
+                <!-- Problem box - Initially hidden -->
+                <div id="problem-box" class="initially-hidden"> 
+                    <div id="equation">
+                        <div class="number-box" id="num1-box">
+                            <span id="num1">5</span>
+                        </div>
+                        <span id="operator">+</span>
+                        <div class="number-box" id="num2-box">
+                            <span id="num2">3</span>
+                        </div>
+                        <span id="equals">=</span>
+                        <div class="number-box" id="answer-box">
+                            <input type="text" id="answer-input" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timer Bar - Initially hidden -->
+            <div class="timer-container initially-hidden">
+                <div class="timer-bar" id="timer-bar"></div>
+                <div class="timer-value" id="timer-value">100</div>
+            </div>
+
+            <!-- Progress Bar - Initially hidden -->
+            <div class="progress-container initially-hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <img src="cat.png" alt="Progress Cat" class="progress-icon" id="progress-icon">
+            </div>
+            
+            <!-- Numpad - Initially hidden -->
+            <div class="numpad initially-hidden">
+                <div class="numpad-row">
+                    <button class="numpad-btn">1</button>
+                    <button class="numpad-btn">2</button>
+                    <button class="numpad-btn">3</button>
+                </div>
+                <div class="numpad-row">
+                    <button class="numpad-btn">4</button>
+                    <button class="numpad-btn">5</button>
+                    <button class="numpad-btn">6</button>
+                </div>
+                <div class="numpad-row">
+                    <button class="numpad-btn">7</button>
+                    <button class="numpad-btn">8</button>
+                    <button class="numpad-btn">9</button>
+                </div>
+                <div class="numpad-row">
+                    <button id="backspace" class="action-btn">⌫</button>
+                    <button class="numpad-btn">0</button>
+                    <button id="go" class="action-btn">Go!</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Popup Removed -->
+        <!-- <div id="high-score-popup" class="hidden">HIGH SCORE!</div> -->
+        
+        <div id="celebration" class="hidden">
+            <div class="celebration-content-box">
+                <h2>Congratulations!</h2>
+                
+                <div class="final-score-box">
+                    <p class="final-score" id="celebration-score">Your Score: 0</p>
+                </div>
+                
+                <p id="rank-message" class="hidden"></p> 
+                
+                <div id="leaderboard" > 
+                    <h3>High Scores</h3>
+                    <ul id="high-scores-list"></ul>
+                    <button id="reset-leaderboard-btn" class="small-action-btn">Reset Leaderboard</button>
+                </div>
+                
+                <button id="play-again">Play Again</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Move scripts to the very end -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
