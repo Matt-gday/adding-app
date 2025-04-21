@@ -651,8 +651,8 @@ h1 {
         padding: 15px; 
         width: 95%;
         max-width: 95%;
-        min-height: 690px; /* Mobile height constraint - Uncommented */
-        max-height: 690px; /* Mobile height constraint - Uncommented */
+        min-height: 660px; /* Mobile height constraint - Uncommented */
+        max-height: 660px; /* Mobile height constraint - Uncommented */
     }
 
     /* Mobile styles for main container (Margins) */
@@ -703,7 +703,8 @@ h1 {
     /* Adjust specific top margins and heights */
     #start-game-button {
         margin-top: 15px; 
-        height: 100px !important; /* Override default var height */
+        height: 80px !important; /* Reduced height */
+        font-size: 2.0rem; /* Reduced font size */
     }
     .numpad {
          margin-top: 15px; 
@@ -724,7 +725,7 @@ h1 {
     /* Keep problem box specific styles */
     #problem-box {
         font-size: 2rem;
-        height: 100px !important; /* Match start button override */
+        height: 80px !important; /* Reduced height to match start */
     }
     
     /* Keep number box styles */
@@ -742,10 +743,11 @@ h1 {
         display: none;
     }
 
-    /* Reduce title size */
+    /* Reduce title size and hide on mobile */
     h1 {
         font-size: 2.0rem; 
         margin-bottom: 10px; 
+        display: none; /* Hide on mobile */
     }
 
     /* Reposition and center theme selector */
@@ -773,6 +775,11 @@ h1 {
     /* Hide celebration heading on mobile */
     #celebration h2 {
         display: none;
+    }
+
+    /* Hide rank message on mobile */
+    #rank-message {
+        display: none !important; /* Override script showing it */
     }
 }
 
