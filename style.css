@@ -1061,4 +1061,54 @@ h1 {
 
     --body-bg-image: url('minecraft-bg.jpg');
     --progress-icon-src: url('minecraft-icon.png');
+}
+
+/* Jungle Theme */
+.theme-jungle {
+    --bg-body: #3b5a3b; /* Slightly brighter deep green */
+    --bg-container: #588f62; /* More vibrant leaf green */
+    --text-heading: #ffee58; /* Vibrant Yellow */
+    --text-secondary: #c8e6c9; /* Light Mint Green */
+    --text-primary: #ffffff; /* Pure White for max contrast */
+    --text-light: #ffffff; /* Pure White */
+    --text-input: #1b2b1b; /* Keep dark green text in input box */
+    
+    --gradient-problem: linear-gradient(145deg, #76c78a, #588f62); /* Vibrant Green gradient */
+    --shadow-problem: rgba(88, 143, 98, 0.5);
+    --bg-number-box: #e8f5e9; /* Very Light Green */
+    
+    --bg-timer-container: #76c78a; /* Vibrant green */
+    --gradient-timer-bar: linear-gradient(90deg, #ffee58, #fdd835); /* Vibrant Yellow gradient */
+    --bg-timer-value: #ffee58; /* Vibrant Yellow */
+    --text-timer-value: #3b5a3b; /* Darker green text */
+    
+    --bg-progress-bar: #76c78a; /* Vibrant green */
+    --bg-numpad-btn: #81c784; /* Bright Mid green */
+    --shadow-numpad-btn: #5aa161; /* Darker green */
+    --text-numpad-btn: #1b2b1b; /* Dark green text */
+    
+    --bg-action-btn: #ef5350; /* Vibrant Red */
+    --shadow-action-btn: #c62828; /* Darker Red */
+    --text-action-btn: #ffffff; /* White text */
+    
+    --bg-small-action-btn: #ff7043; /* Vibrant Orange/Brown */
+    --shadow-small-action-btn: #e64a19;
+    
+    --bg-backspace-btn: #ff7043; /* Vibrant Orange/Brown */
+    --shadow-backspace-btn: #e64a19;
+    
+    --bg-go-btn: #26c6da; /* Vibrant Cyan/Turquoise */
+    --shadow-go-btn: #0097a7; /* Darker Cyan */
+    
+    --gradient-final-score: linear-gradient(145deg, #588f62, #3b5a3b); /* Vibrant green */
+    --bg-leaderboard: #588f62; /* Vibrant leaf green */
+    --bg-leaderboard-li: #e8f5e9; /* Very light green list items */
+    --text-primary: #1b2b1b; /* Dark text for leaderboard */
+    --text-score-highlight: #ef5350; /* Vibrant Red highlight */
+    
+    --bg-play-again-btn: #ffee58; /* Vibrant Yellow */
+    --shadow-play-again-btn: #fbc02d; /* Darker Yellow */
+
+    --body-bg-image: url('jungle-bg.png'); 
+    --progress-icon-src: url('monkey.png');
 } 

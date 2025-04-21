@@ -525,25 +525,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (themeDefaultButton) {
-        themeDefaultButton.addEventListener('click', () => {
-            applyTheme(themeDefaultButton.getAttribute('data-theme'));
+    // --- ADD Event Delegation Listener --- 
+    const themeSelector = document.querySelector('.theme-selector');
+    if (themeSelector) {
+        themeSelector.addEventListener('click', (event) => {
+            // Check if the clicked element or its parent is a theme button
+            const targetButton = event.target.closest('.theme-icon-button'); 
+            
+            // Ensure we found a button and it has the data-theme attribute
+            if (targetButton && targetButton.dataset.theme !== undefined) { 
+                 const theme = targetButton.dataset.theme;
+                 console.log(`Applying theme from delegated listener: ${theme || 'default'}`); // Add log
+                 applyTheme(theme);
+            }
         });
-    }
-    if (themeBatmanButton) {
-        themeBatmanButton.addEventListener('click', () => {
-            applyTheme(themeBatmanButton.getAttribute('data-theme'));
-        });
-    }
-    if (themeMinecraftButton) {
-        themeMinecraftButton.addEventListener('click', () => {
-            applyTheme(themeMinecraftButton.getAttribute('data-theme'));
-        });
-    }
-    if (themeSpaceButton) {
-        themeSpaceButton.addEventListener('click', () => {
-            applyTheme(themeSpaceButton.getAttribute('data-theme'));
-        });
+    } else {
+        console.error('Theme selector container not found!');
     }
     
     // --- End Theme Selector Logic ---
